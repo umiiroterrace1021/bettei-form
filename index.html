@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0058)file:///C:/Users/siriu/Downloads/minpaku_guest_form_1.html -->
+<!-- saved from url=(0058)file:///C:/Users/siriu/Downloads/minpaku_guest_form_3.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -432,9 +432,9 @@
     </div>
 
     <div class="field">
-      <label>同行者の人数 <span class="required">*</span><span class="optional">代表者を除く</span></label>
-      <input type="number" id="companionCount" min="0" max="19" placeholder="0〜19の数字を入力">
-      <div class="error-msg" id="err-companionCount">同行者の人数をご入力ください（0〜19）</div>
+      <label>宿泊人数 <span class="required">*</span><span class="optional">代表者を含む合計人数</span></label>
+      <input type="number" id="companionCount" min="1" max="20" placeholder="1〜20の数字を入力">
+      <div class="error-msg" id="err-companionCount">宿泊人数をご入力ください（1〜20）</div>
     </div>
 
     <button class="btn-primary" onclick="goToStep2()">次へ　→</button>
@@ -593,11 +593,11 @@
     }
 
     const cc = document.getElementById('companionCount').value;
-    if (cc === '' || parseInt(cc) < 0 || parseInt(cc) > 19) { showError('companionCount', true); valid = false; } else showError('companionCount', false);
+    if (cc === '' || parseInt(cc) < 1 || parseInt(cc) > 20) { showError('companionCount', true); valid = false; } else showError('companionCount', false);
 
     if (!valid) return;
 
-    companionCount = parseInt(document.getElementById('companionCount').value);
+    companionCount = parseInt(document.getElementById('companionCount').value) - 1;
     goToStep(2);
   }
 
@@ -730,7 +730,7 @@
         <div class="confirm-row"><span class="confirm-key">宿泊開始日</span><span class="confirm-val">${checkIn}</span></div>
         <div class="confirm-row"><span class="confirm-key">宿泊終了日</span><span class="confirm-val">${checkOut}</span></div>
         <div class="confirm-row"><span class="confirm-key">宿泊日数</span><span class="confirm-val">${nights}泊</span></div>
-        <div class="confirm-row"><span class="confirm-key">同行者人数</span><span class="confirm-val">${companionCount}名</span></div>
+        <div class="confirm-row"><span class="confirm-key">宿泊人数</span><span class="confirm-val">${ companionCount + 1 }名</span></div>
       </div>
       <hr class="divider">
       <div class="confirm-section">
