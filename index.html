@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0058)file:///C:/Users/siriu/Downloads/minpaku_guest_form_3.html -->
-<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>宿泊者情報登録</title>
-<link href="./index_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #1a1410;
@@ -604,7 +604,7 @@
   function goToStep3() {
     let valid = true;
 
-    ['rep-name', 'rep-address', 'rep-job', 'rep-nationality'].forEach(id => {
+    ['rep-name', 'rep-address', 'rep-job', 'rep-age', 'rep-nationality'].forEach(id => {
       const val = document.getElementById(id).value.trim();
       if (!val) { showError(id, true); valid = false; } else showError(id, false);
     });
@@ -651,6 +651,11 @@
           <label>職業 <span class="required">*</span></label>
           <input type="text" id="comp${i}-job" placeholder="例：学生">
           <div class="error-msg" id="err-comp${i}-job">職業をご入力ください</div>
+        </div>
+        <div class="field">
+          <label>年齢 <span class="required">*</span></label>
+          <input type="number" id="comp${i}-age" min="1" max="120" placeholder="例：28">
+          <div class="error-msg" id="err-comp${i}-age">年齢をご入力ください</div>
         </div>
         <div class="field">
           <label>国籍 <span class="required">*</span></label>
@@ -701,7 +706,7 @@
     let valid = true;
 
     for (let i = 1; i <= companionCount; i++) {
-      ['name', 'address', 'job', 'nationality'].forEach(f => {
+      ['name', 'address', 'job', 'age', 'nationality'].forEach(f => {
         const val = document.getElementById(`comp${i}-${f}`).value.trim();
         if (!val) { showError(`comp${i}-${f}`, true); valid = false; } else showError(`comp${i}-${f}`, false);
       });
@@ -738,6 +743,7 @@
         <div class="confirm-row"><span class="confirm-key">氏名</span><span class="confirm-val">${document.getElementById('rep-name').value}</span></div>
         <div class="confirm-row"><span class="confirm-key">住所</span><span class="confirm-val">${document.getElementById('rep-address').value}</span></div>
         <div class="confirm-row"><span class="confirm-key">職業</span><span class="confirm-val">${document.getElementById('rep-job').value}</span></div>
+        <div class="confirm-row"><span class="confirm-key">年齢</span><span class="confirm-val">${document.getElementById('rep-age').value}歳</span></div>
         <div class="confirm-row"><span class="confirm-key">国籍</span><span class="confirm-val">${document.getElementById('rep-nationality').value}</span></div>
     `;
     const repNat = document.getElementById('rep-nationality').value;
@@ -754,6 +760,7 @@
           <div class="confirm-row"><span class="confirm-key">氏名</span><span class="confirm-val">${document.getElementById(`comp${i}-name`).value}</span></div>
           <div class="confirm-row"><span class="confirm-key">住所</span><span class="confirm-val">${document.getElementById(`comp${i}-address`).value}</span></div>
           <div class="confirm-row"><span class="confirm-key">職業</span><span class="confirm-val">${document.getElementById(`comp${i}-job`).value}</span></div>
+          <div class="confirm-row"><span class="confirm-key">年齢</span><span class="confirm-val">${document.getElementById(`comp${i}-age`).value}歳</span></div>
           <div class="confirm-row"><span class="confirm-key">国籍</span><span class="confirm-val">${document.getElementById(`comp${i}-nationality`).value}</span></div>
       `;
       const nat = document.getElementById(`comp${i}-nationality`).value;
@@ -799,6 +806,7 @@
         name: document.getElementById(`comp${i}-name`).value,
         address: document.getElementById(`comp${i}-address`).value,
         job: document.getElementById(`comp${i}-job`).value,
+        age: document.getElementById(`comp${i}-age`).value,
         nationality: document.getElementById(`comp${i}-nationality`).value,
         passport: document.getElementById(`comp${i}-passport`) ? document.getElementById(`comp${i}-passport`).value : ''
       });
@@ -811,6 +819,7 @@
         name: document.getElementById('rep-name').value,
         address: document.getElementById('rep-address').value,
         job: document.getElementById('rep-job').value,
+        age: document.getElementById('rep-age').value,
         nationality: document.getElementById('rep-nationality').value,
         passport: document.getElementById('rep-passport') ? document.getElementById('rep-passport').value : ''
       },
@@ -834,6 +843,5 @@
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 </script>
-
-
-</body></html>
+</body>
+</html>
