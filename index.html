@@ -537,6 +537,7 @@
       </div>
       <div class="success-title">送信が完了しました</div>
       <p class="success-msg">ご記入いただきありがとうございます。<br>チェックイン時にお待ちしております。</p>
+      <button class="btn-secondary" style="max-width:300px;margin:24px auto 0;" onclick="editAgain()">← 戻って内容を修正する</button>
     </div>
   </div>
 </div>
@@ -629,7 +630,7 @@
 
   function buildCompanionFields() {
     const container = document.getElementById('companionFields');
-    container.innerHTML = '';
+    var __prevComp = {}; document.querySelectorAll('[id^="comp"]').forEach(function(__e){ __prevComp[__e.id]=__e.value; }); container.innerHTML = '';
 
     if (companionCount === 0) {
       document.getElementById('companionDesc').textContent = '同行者はいません。確認画面へお進みください。';
@@ -700,6 +701,8 @@
       `;
       container.appendChild(block);
     }
+    Object.keys(__prevComp).forEach(function(__k){ var __e=document.getElementById(__k); if(__e && __prevComp[__k]!==undefined && __prevComp[__k]!=='') __e.value=__prevComp[__k]; });
+    for (var __i=1; __i<=companionCount; __i++){ try{ togglePassport(__i); }catch(__er){} }
   }
 
   function togglePassport(i) {
@@ -800,6 +803,14 @@
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
+  function editAgain() {
+    var b = document.querySelector('#step4 .btn-primary');
+    if (b) { b.textContent = '送信する'; b.disabled = false; }
+    var pb = document.getElementById('progressBar'); if (pb) pb.style.display = 'flex';
+    document.getElementById('step5').classList.remove('active');
+    goToStep(1);
+  }
+
   async function submitForm() {
     const btn = document.querySelector('#step4 .btn-primary');
     btn.textContent = '送信中...';
@@ -833,7 +844,7 @@
     };
 
     try {
-      await fetch('https://script.google.com/macros/s/AKfycbysvRl3sipBb16BOK2UliOudBxtdO4hoWn6-kh0UTKWYqep5MYNjecYq6hBfosK4T9EGA/exec', {
+      await fetch('https://script.google.com/macros/s/AKfycbzdLrNFxL8MJl_5Dy7abRxqU5Mq4jm9r6YUDaGCLRo2m4d_WEdJuwmPbYMDvxqTZb0QZA/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
